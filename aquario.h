@@ -7,6 +7,11 @@
 #define M_PI 3.14159265358979323846
 #endif
 
+#define LARGURA_AQUARIO 5.0f
+#define ALTURA_AQUARIO 4.0f
+#define PROFUNDIDADE_AQUARIO 3.5f
+#define ALTURA_AGUA (ALTURA_AQUARIO * 0.95)
+
 #include <GL/glut.h>
 #include <GL/glu.h> 
 #include <math.h>
