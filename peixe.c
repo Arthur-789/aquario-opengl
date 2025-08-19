@@ -3,9 +3,6 @@
 #include "aquario.h"
 
 #define MAX_PEIXES 20
-#define LARGURA_AQUARIO 5.0f
-#define PROFUNDIDADE_AQUARIO 3.5f
-#define ALTURA_AGUA 3.8f
 
 Peixe* peixes = NULL;
 int numPeixes = 0;

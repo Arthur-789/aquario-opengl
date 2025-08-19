@@ -23,9 +23,6 @@ void desenhaCeu() {
 }
 
 void desenhaCena() {
-    const float largura = 5.0f;
-    const float altura = 4.0f;
-    const float profundidade = 3.5f;
 
     // CÉU
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -37,10 +34,10 @@ void desenhaCena() {
     atualizaCamera();
     
     // MESA
-    float largura_mesa = largura * 1.5f;
-    float profundidade_mesa = profundidade * 1.5f;
+    float largura_mesa = LARGURA_AQUARIO * 1.5f;
+    float profundidade_mesa = PROFUNDIDADE_AQUARIO * 1.5f;
     float espessura_mesa = 0.2f;
-    float topo_mesa = -altura/2;
+    float topo_mesa = -ALTURA_AQUARIO/2;
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texturaMesa);
     glColor3f(1.0f, 1.0f, 1.0f);
@@ -79,8 +76,8 @@ void desenhaCena() {
 
     // AREIA
     float fundo_aquario = topo_mesa + 0.01;
-    float largura_areia = largura - 0.02;
-    float profundidade_areia = profundidade - 0.02;
+    float largura_areia = LARGURA_AQUARIO - 0.02;
+    float profundidade_areia = PROFUNDIDADE_AQUARIO - 0.02;
     float topo_areia = topo_mesa + 0.07;
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texturaAreia);
@@ -119,8 +116,8 @@ void desenhaCena() {
     glDisable(GL_TEXTURE_2D);
 
     // ABACAXI
-    float x_abacaxi = - (largura/2 * 0.8f);
-    float z_abacaxi = - (profundidade/2 * 0.7f);
+    float x_abacaxi = - (LARGURA_AQUARIO/2 * 0.8f);
+    float z_abacaxi = - (PROFUNDIDADE_AQUARIO/2 * 0.7f);
     float base_abacaxi = fundo_aquario + 0.35f;
 
     glPushMatrix();
@@ -163,34 +160,33 @@ void desenhaCena() {
     }
     
     // ÁGUA
-    float nivel_agua = altura * 0.95;
-    float largura_agua = largura - 0.01;
-    float profundidade_agua = profundidade - 0.01; 
+    float largura_agua = LARGURA_AQUARIO - 0.01;
+    float profundidade_agua = PROFUNDIDADE_AQUARIO - 0.01; 
     glColor4f(0.1f, 0.1f, 0.8f, 0.4f);
     glBegin(GL_QUADS);
-        glVertex3f(-largura_agua/2, fundo_aquario + nivel_agua, -profundidade_agua/2);
-        glVertex3f( largura_agua/2, fundo_aquario + nivel_agua, -profundidade_agua/2);
-        glVertex3f( largura_agua/2, fundo_aquario + nivel_agua,  profundidade_agua/2);
-        glVertex3f(-largura_agua/2, fundo_aquario + nivel_agua,  profundidade_agua/2);
+        glVertex3f(-largura_agua/2, fundo_aquario + ALTURA_AGUA, -profundidade_agua/2);
+        glVertex3f( largura_agua/2, fundo_aquario + ALTURA_AGUA, -profundidade_agua/2);
+        glVertex3f( largura_agua/2, fundo_aquario + ALTURA_AGUA,  profundidade_agua/2);
+        glVertex3f(-largura_agua/2, fundo_aquario + ALTURA_AGUA,  profundidade_agua/2);
         
         glVertex3f(-largura_agua/2, fundo_aquario, profundidade_agua/2);
         glVertex3f( largura_agua/2, fundo_aquario, profundidade_agua/2);
-        glVertex3f( largura_agua/2, fundo_aquario + nivel_agua, profundidade_agua/2);
-        glVertex3f(-largura_agua/2, fundo_aquario + nivel_agua, profundidade_agua/2);
+        glVertex3f( largura_agua/2, fundo_aquario + ALTURA_AGUA, profundidade_agua/2);
+        glVertex3f(-largura_agua/2, fundo_aquario + ALTURA_AGUA, profundidade_agua/2);
         
         glVertex3f(-largura_agua/2, fundo_aquario, -profundidade_agua/2);
-        glVertex3f(-largura_agua/2, fundo_aquario + nivel_agua, -profundidade_agua/2);
-        glVertex3f( largura_agua/2, fundo_aquario + nivel_agua, -profundidade_agua/2);
+        glVertex3f(-largura_agua/2, fundo_aquario + ALTURA_AGUA, -profundidade_agua/2);
+        glVertex3f( largura_agua/2, fundo_aquario + ALTURA_AGUA, -profundidade_agua/2);
         glVertex3f( largura_agua/2, fundo_aquario, -profundidade_agua/2);
 
         glVertex3f(-largura_agua/2, fundo_aquario, -profundidade_agua/2);
         glVertex3f(-largura_agua/2, fundo_aquario, profundidade_agua/2);
-        glVertex3f(-largura_agua/2, fundo_aquario + nivel_agua, profundidade_agua/2);
-        glVertex3f(-largura_agua/2, fundo_aquario + nivel_agua, -profundidade_agua/2);
+        glVertex3f(-largura_agua/2, fundo_aquario + ALTURA_AGUA, profundidade_agua/2);
+        glVertex3f(-largura_agua/2, fundo_aquario + ALTURA_AGUA, -profundidade_agua/2);
         
         glVertex3f(largura_agua/2, fundo_aquario, -profundidade_agua/2);
-        glVertex3f(largura_agua/2, fundo_aquario + nivel_agua, -profundidade_agua/2);
-        glVertex3f(largura_agua/2, fundo_aquario + nivel_agua, profundidade_agua/2);
+        glVertex3f(largura_agua/2, fundo_aquario + ALTURA_AGUA, -profundidade_agua/2);
+        glVertex3f(largura_agua/2, fundo_aquario + ALTURA_AGUA, profundidade_agua/2);
         glVertex3f(largura_agua/2, fundo_aquario, profundidade_agua/2);
     glEnd();
     
@@ -198,68 +194,67 @@ void desenhaCena() {
     glColor4f(0.6f, 0.8f, 1.0f, 0.3f);
     glBegin(GL_QUADS);
         // Frente
-        glVertex3f(-largura/2, fundo_aquario, profundidade/2);
-        glVertex3f( largura/2, fundo_aquario, profundidade/2);
-        glVertex3f( largura/2, fundo_aquario + altura, profundidade/2);
-        glVertex3f(-largura/2, fundo_aquario + altura, profundidade/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario, PROFUNDIDADE_AQUARIO/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario, PROFUNDIDADE_AQUARIO/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, PROFUNDIDADE_AQUARIO/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, PROFUNDIDADE_AQUARIO/2);
 
         // Trás
-        glVertex3f(-largura/2, fundo_aquario, -profundidade/2);
-        glVertex3f(-largura/2, fundo_aquario + altura, -profundidade/2);
-        glVertex3f( largura/2, fundo_aquario + altura, -profundidade/2);
-        glVertex3f( largura/2, fundo_aquario, -profundidade/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario, -PROFUNDIDADE_AQUARIO/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, -PROFUNDIDADE_AQUARIO/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, -PROFUNDIDADE_AQUARIO/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario, -PROFUNDIDADE_AQUARIO/2);
 
         // Esquerda
-        glVertex3f(-largura/2, fundo_aquario, -profundidade/2);
-        glVertex3f(-largura/2, fundo_aquario, profundidade/2);
-        glVertex3f(-largura/2, fundo_aquario + altura, profundidade/2);
-        glVertex3f(-largura/2, fundo_aquario + altura, -profundidade/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario, -PROFUNDIDADE_AQUARIO/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario, PROFUNDIDADE_AQUARIO/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, PROFUNDIDADE_AQUARIO/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, -PROFUNDIDADE_AQUARIO/2);
 
         // Direita
-        glVertex3f(largura/2, fundo_aquario, -profundidade/2);
-        glVertex3f(largura/2, fundo_aquario + altura, -profundidade/2);
-        glVertex3f(largura/2, fundo_aquario + altura, profundidade/2);
-        glVertex3f(largura/2, fundo_aquario, profundidade/2);
-        
+        glVertex3f(LARGURA_AQUARIO/2, fundo_aquario, -PROFUNDIDADE_AQUARIO/2);
+        glVertex3f(LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, -PROFUNDIDADE_AQUARIO/2);
+        glVertex3f(LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, PROFUNDIDADE_AQUARIO/2);
+        glVertex3f(LARGURA_AQUARIO/2, fundo_aquario, PROFUNDIDADE_AQUARIO/2);
     glEnd();
 
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_LINES);
-        glVertex3f(-largura/2, fundo_aquario, -profundidade/2);
-        glVertex3f( largura/2, fundo_aquario, -profundidade/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario, -PROFUNDIDADE_AQUARIO/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario, -PROFUNDIDADE_AQUARIO/2);
         
-        glVertex3f( largura/2, fundo_aquario, -profundidade/2);
-        glVertex3f( largura/2, fundo_aquario,  profundidade/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario, -PROFUNDIDADE_AQUARIO/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario,  PROFUNDIDADE_AQUARIO/2);
         
-        glVertex3f( largura/2, fundo_aquario,  profundidade/2);
-        glVertex3f(-largura/2, fundo_aquario,  profundidade/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario,  PROFUNDIDADE_AQUARIO/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario,  PROFUNDIDADE_AQUARIO/2);
         
-        glVertex3f(-largura/2, fundo_aquario,  profundidade/2);
-        glVertex3f(-largura/2, fundo_aquario, -profundidade/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario,  PROFUNDIDADE_AQUARIO/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario, -PROFUNDIDADE_AQUARIO/2);
         
-        glVertex3f(-largura/2, fundo_aquario + altura, -profundidade/2);
-        glVertex3f( largura/2, fundo_aquario + altura, -profundidade/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, -PROFUNDIDADE_AQUARIO/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, -PROFUNDIDADE_AQUARIO/2);
         
-        glVertex3f( largura/2, fundo_aquario + altura, -profundidade/2);
-        glVertex3f( largura/2, fundo_aquario + altura,  profundidade/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, -PROFUNDIDADE_AQUARIO/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO,  PROFUNDIDADE_AQUARIO/2);
         
-        glVertex3f( largura/2, fundo_aquario + altura,  profundidade/2);
-        glVertex3f(-largura/2, fundo_aquario + altura,  profundidade/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO,  PROFUNDIDADE_AQUARIO/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO,  PROFUNDIDADE_AQUARIO/2);
         
-        glVertex3f(-largura/2, fundo_aquario + altura,  profundidade/2);
-        glVertex3f(-largura/2, fundo_aquario + altura, -profundidade/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO,  PROFUNDIDADE_AQUARIO/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, -PROFUNDIDADE_AQUARIO/2);
         
-        glVertex3f(-largura/2, fundo_aquario, -profundidade/2);
-        glVertex3f(-largura/2, fundo_aquario + altura, -profundidade/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario, -PROFUNDIDADE_AQUARIO/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, -PROFUNDIDADE_AQUARIO/2);
         
-        glVertex3f( largura/2, fundo_aquario, -profundidade/2);
-        glVertex3f( largura/2, fundo_aquario + altura, -profundidade/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario, -PROFUNDIDADE_AQUARIO/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, -PROFUNDIDADE_AQUARIO/2);
         
-        glVertex3f( largura/2, fundo_aquario, profundidade/2);
-        glVertex3f( largura/2, fundo_aquario + altura, profundidade/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario, PROFUNDIDADE_AQUARIO/2);
+        glVertex3f( LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, PROFUNDIDADE_AQUARIO/2);
         
-        glVertex3f(-largura/2, fundo_aquario, profundidade/2);
-        glVertex3f(-largura/2, fundo_aquario + altura, profundidade/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario, PROFUNDIDADE_AQUARIO/2);
+        glVertex3f(-LARGURA_AQUARIO/2, fundo_aquario + ALTURA_AQUARIO, PROFUNDIDADE_AQUARIO/2);
     glEnd();
 }
 
