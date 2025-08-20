@@ -75,6 +75,8 @@ void inicializar() {
     texturaPeixe4 = carregaTextura("texturas/peixe4.png");
     texturaPeixe5 = carregaTextura("texturas/peixe5.png");
 
+    inicializarIluminacao();
+
     srand(time(NULL));
     inicializarPeixes(3);
 }

@@ -66,4 +66,14 @@ void desenharPeixe(Peixe* peixe);
 void adicionarPeixe();
 void inicializarPeixes(int quantidade);
 
+// ILUMINAÇÃO
+
+void inicializarIluminacao(void);
+void habilitarIluminacao(void);
+void desabilitarIluminacao(void);
+void atualizarPosicaoLuz(float x, float y, float z, float w);
+void configurarIntensidade(float ambient, float diffuse, float specular);
+void configurarBrilhoMaterial(float shininess);
+void usarTexturaModulate(int usar);
+
 #endif
