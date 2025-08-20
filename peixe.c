@@ -31,11 +31,13 @@ void desenharPeixe(Peixe* peixe) {
 
     glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
+        glNormal3f(0.0f, 0.0f, 1.0f);
         glTexCoord2f(0.0f, 1.0f); glVertex3f(-hx, -hy,  hz);
         glTexCoord2f(1.0f, 1.0f); glVertex3f( hx, -hy,  hz);
         glTexCoord2f(1.0f, 0.0f); glVertex3f( hx,  hy,  hz);
         glTexCoord2f(0.0f, 0.0f); glVertex3f(-hx,  hy,  hz);
 
+        glNormal3f(0.0f, 0.0f, -1.0f);
         glTexCoord2f(0.0f, 1.0f); glVertex3f(-hx, -hy, -hz);
         glTexCoord2f(1.0f, 1.0f); glVertex3f( hx, -hy, -hz);
         glTexCoord2f(1.0f, 0.0f); glVertex3f( hx,  hy, -hz);
@@ -49,21 +51,25 @@ void desenharPeixe(Peixe* peixe) {
 
     // Lateral esquerda
     glBegin(GL_QUADS);
+        glNormal3f(-1.0f, 0.0f, 0.0f);
         glVertex3f(-hx, -hy, -hz);
         glVertex3f(-hx, -hy,  hz);
         glVertex3f(-hx,  hy,  hz);
         glVertex3f(-hx,  hy, -hz);
     // Lateral direita
+        glNormal3f(1.0f, 0.0f, 0.0f);
         glVertex3f( hx, -hy,  hz);
         glVertex3f( hx, -hy, -hz);
         glVertex3f( hx,  hy, -hz);
         glVertex3f( hx,  hy,  hz);
     // Topo
+        glNormal3f(0.0f, 1.0f, 0.0f);
         glVertex3f(-hx,  hy,  hz);
         glVertex3f( hx,  hy,  hz);
         glVertex3f( hx,  hy, -hz);
         glVertex3f(-hx,  hy, -hz);
     // Fundo
+        glNormal3f(0.0f, -1.0f, 0.0f);
         glVertex3f(-hx, -hy, -hz);
         glVertex3f( hx, -hy, -hz);
         glVertex3f( hx, -hy,  hz);
