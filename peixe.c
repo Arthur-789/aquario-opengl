@@ -92,7 +92,7 @@ void adicionarPeixe() {
     float r = (float)rand() / (float)RAND_MAX;
     novoPeixe->velocidade = 0.02f + r * 0.08f; // 0.02 até 0.10
     r = (float)rand() / (float)RAND_MAX;
-    novoPeixe->tamanho = 0.2f + r * 0.7f; // 0.2 até 1.0
+    novoPeixe->tamanho = 0.2f + r * 0.3f;
 
     float margemX = novoPeixe->tamanho / 2.0f + 0.05f;
     float margemZ = novoPeixe->tamanho / 2.0f + 0.05f;
