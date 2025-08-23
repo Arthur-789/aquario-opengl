@@ -64,6 +64,7 @@ void iniciaCena();
 extern Peixe* peixes;
 extern int numPeixes;
 
+void atualizarPeixes();
 void desenharPeixe(Peixe* peixe);
 void adicionarPeixe();
 void inicializarPeixes(int quantidade);

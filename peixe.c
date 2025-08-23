@@ -1,16 +1,51 @@
 #include <stdlib.h>
-#include <math.h>
 #include "aquario.h"
 
 Peixe* peixes = NULL;
 int numPeixes = 0;
 
+void atualizarPeixes() {
+    for (int i = 0; i < numPeixes; i++) {
+        Peixe* p = &peixes[i];
+        
+        p->posX += p->dirX * p->velocidade;
+        p->posY += p->dirY * p->velocidade;
+        p->posZ += p->dirZ * p->velocidade;
+
+        float margem = p->tamanho / 2.0f;
+        float x_min = -LARGURA_AQUARIO/2 + margem;
+        float x_max = LARGURA_AQUARIO/2 - margem;
+        float y_min = -2.0f + margem;  // Base do aquário
+        float y_max = (-2.0f + ALTURA_AGUA) - margem;
+        float z_min = -PROFUNDIDADE_AQUARIO/2 + margem;
+        float z_max = PROFUNDIDADE_AQUARIO/2 - margem;
+
+        // Verifica colisão com as paredes e inverte direção se necessário
+        if (p->posX < x_min || p->posX > x_max) {
+            p->dirX *= -1;
+            p->posX = (p->posX < x_min) ? x_min : x_max;
+        }
+        if (p->posY < y_min || p->posY > y_max) {
+            p->dirY *= -1;
+            p->posY = (p->posY < y_min) ? y_min : y_max;
+        }
+        if (p->posZ < z_min || p->posZ > z_max) {
+            p->dirZ *= -1;
+            p->posZ = (p->posZ < z_min) ? z_min : z_max;
+        }
+
+        // Atualiza rotação baseada na direção (apenas no eixo Y)
+        p->rotacao = atan2f(p->dirX, p->dirZ) * 180.0f / M_PI;
+    }
+    glutPostRedisplay();
+}
+
 void desenharPeixe(Peixe* peixe) {
     if (!peixe) return;
 
-    float tamX = peixe->tamanho;
+    float tamX = peixe->tamanho / 3.0f;
     float tamY = peixe->tamanho / 2.0f;
-    float tamZ = peixe->tamanho / 3.0f;
+    float tamZ = peixe->tamanho;
 
     float hx = tamX / 2.0f;
     float hy = tamY / 2.0f;
@@ -29,17 +64,17 @@ void desenharPeixe(Peixe* peixe) {
 
     glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
-        glNormal3f(0.0f, 0.0f, 1.0f);
-        glTexCoord2f(0.0f, 1.0f); glVertex3f(-hx, -hy,  hz);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f( hx, -hy,  hz);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f( hx,  hy,  hz);
-        glTexCoord2f(0.0f, 0.0f); glVertex3f(-hx,  hy,  hz);
-
-        glNormal3f(0.0f, 0.0f, -1.0f);
+        glNormal3f(-1.0f, 0.0f, 0.0f);
         glTexCoord2f(0.0f, 1.0f); glVertex3f(-hx, -hy, -hz);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(-hx, -hy,  hz);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(-hx,  hy,  hz);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(-hx,  hy, -hz);
+
+        glNormal3f(1.0f, 0.0f, 0.0f);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f( hx, -hy,  hz);
         glTexCoord2f(1.0f, 1.0f); glVertex3f( hx, -hy, -hz);
         glTexCoord2f(1.0f, 0.0f); glVertex3f( hx,  hy, -hz);
-        glTexCoord2f(0.0f, 0.0f); glVertex3f(-hx,  hy, -hz);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f( hx,  hy,  hz);
     glEnd();
 
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -49,17 +84,17 @@ void desenharPeixe(Peixe* peixe) {
 
     // Lateral esquerda
     glBegin(GL_QUADS);
-        glNormal3f(-1.0f, 0.0f, 0.0f);
-        glVertex3f(-hx, -hy, -hz);
+        glNormal3f(0.0f, 0.0f, 1.0f);
         glVertex3f(-hx, -hy,  hz);
-        glVertex3f(-hx,  hy,  hz);
-        glVertex3f(-hx,  hy, -hz);
-    // Lateral direita
-        glNormal3f(1.0f, 0.0f, 0.0f);
         glVertex3f( hx, -hy,  hz);
+        glVertex3f( hx,  hy,  hz);
+        glVertex3f(-hx,  hy,  hz);
+    // Lateral direita
+        glNormal3f(0.0f, 0.0f, -1.0f);
+        glVertex3f(-hx, -hy, -hz);
         glVertex3f( hx, -hy, -hz);
         glVertex3f( hx,  hy, -hz);
-        glVertex3f( hx,  hy,  hz);
+        glVertex3f(-hx,  hy, -hz);
     // Topo
         glNormal3f(0.0f, 1.0f, 0.0f);
         glVertex3f(-hx,  hy,  hz);
@@ -90,7 +125,7 @@ void adicionarPeixe() {
     Peixe* novoPeixe = &peixes[numPeixes];
 
     float r = (float)rand() / (float)RAND_MAX;
-    novoPeixe->velocidade = 0.02f + r * 0.08f; // 0.02 até 0.10
+    novoPeixe->velocidade = 0.01f + r * 0.04f; // 0.01 até 0.05
     r = (float)rand() / (float)RAND_MAX;
     novoPeixe->tamanho = 0.2f + r * 0.3f;
 
