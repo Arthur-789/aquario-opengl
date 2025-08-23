@@ -1,20 +1,32 @@
 #ifndef AQUARIO_H
 #define AQUARIO_H
 
-// RECURSOS
+#include <GL/glut.h>
+#include <GL/glu.h> 
+#include <math.h>
 
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
+typedef struct {
+    float posX, posY, posZ;
+    float dirX, dirY, dirZ;
+    float velocidade;
+    float tamanho;
+    float rotacao;
+    GLuint textura;
+    float corR, corG, corB;
+} Peixe;
 
 #define LARGURA_AQUARIO 5.0f
 #define ALTURA_AQUARIO 4.0f
 #define PROFUNDIDADE_AQUARIO 3.5f
 #define ALTURA_AGUA (ALTURA_AQUARIO * 0.95)
 
-#include <GL/glut.h>
-#include <GL/glu.h> 
-#include <math.h>
+#define MAX_PEIXES 50
+
+// RECURSOS
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 extern float raio_camera;
 extern float angulo_theta;
@@ -49,16 +61,6 @@ void iniciaCena();
 
 // PEIXE
 
-typedef struct {
-    float posX, posY, posZ;
-    float dirX, dirY, dirZ;
-    float velocidade;
-    float tamanho;
-    float rotacao;
-    GLuint textura;
-    float corR, corG, corB;
-} Peixe;
-
 extern Peixe* peixes;
 extern int numPeixes;
 
@@ -66,7 +68,7 @@ void desenharPeixe(Peixe* peixe);
 void adicionarPeixe();
 void inicializarPeixes(int quantidade);
 
-// ILUMINAÇÃO
+// ILUMINACAO
 
 void inicializarIluminacao(void);
 void habilitarIluminacao(void);

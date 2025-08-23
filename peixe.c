@@ -2,8 +2,6 @@
 #include <math.h>
 #include "aquario.h"
 
-#define MAX_PEIXES 20
-
 Peixe* peixes = NULL;
 int numPeixes = 0;
 
