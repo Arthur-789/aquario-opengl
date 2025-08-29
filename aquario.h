@@ -38,6 +38,8 @@ extern GLuint texturaAreia;
 extern GLuint texturaMesa;
 extern GLuint texturaCeu;
 extern GLuint texturaAbacaxi;
+extern GLuint texturaPedra;
+extern GLuint texturaMadeira;
 extern GLuint texturaPeixe1;
 extern GLuint texturaPeixe2;
 extern GLuint texturaPeixe3;
@@ -67,6 +69,7 @@ extern int numPeixes;
 void atualizarPeixes();
 void desenharPeixe(Peixe* peixe);
 void adicionarPeixe();
+void removerPeixe();
 void inicializarPeixes(int quantidade);
 
 // ILUMINACAO

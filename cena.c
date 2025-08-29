@@ -132,7 +132,7 @@ void desenhaCena() {
     glDisable(GL_TEXTURE_2D);
 
     // ABACAXI
-    float x_abacaxi = - (LARGURA_AQUARIO/2 * 0.8f);
+    float x_abacaxi = - (LARGURA_AQUARIO/2 * 0.01f);
     float z_abacaxi = - (PROFUNDIDADE_AQUARIO/2 * 0.7f);
     float base_abacaxi = fundo_aquario + 0.35f;
 
@@ -171,6 +171,122 @@ void desenhaCena() {
         glPopMatrix();
     }
 
+    //PEDRA
+    float x_pedra = - (LARGURA_AQUARIO/2 * 0.6f);
+    float z_pedra = - (PROFUNDIDADE_AQUARIO/2 * 0.7f);
+    float base_pedra = fundo_aquario;
+
+    glPushMatrix();
+    glTranslatef(x_pedra, base_pedra, z_pedra);
+
+    GLdouble eqn[4] = {0.0, 1.0, 0.0, 0.0};
+    glClipPlane(GL_CLIP_PLANE0, eqn);
+    glEnable(GL_CLIP_PLANE0);
+
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    glScalef(0.4f, 0.4f, 0.6f);
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texturaPedra);
+
+    GLUquadric* pedra = gluNewQuadric();
+    gluQuadricTexture(pedra, GL_TRUE);
+    gluQuadricNormals(pedra, GLU_SMOOTH);
+    gluSphere(pedra, 1.0, 32, 32);
+    gluDeleteQuadric(pedra);
+
+    glDisable(GL_CLIP_PLANE0);
+    glDisable(GL_TEXTURE_2D);
+    glPopMatrix();
+
+    //DETALHE EM CIMA DA PEDRA
+      
+        //CILINDRO VERTICAL
+    glPushMatrix();
+    float topo_pedra = base_pedra + (1.0f * 0.6f);
+    glTranslatef(x_pedra, topo_pedra , z_pedra);
+
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texturaMadeira);
+
+    GLUquadric* cilindro_vertical = gluNewQuadric();
+    gluQuadricTexture(cilindro_vertical, GL_TRUE);
+    gluQuadricNormals(cilindro_vertical, GLU_SMOOTH);
+    gluCylinder(cilindro_vertical, 0.01f, 0.008f, 0.1f, 16, 4); 
+
+    gluDeleteQuadric(cilindro_vertical);
+    glDisable(GL_TEXTURE_2D);
+    glPopMatrix();
+
+        //CILINDRO HORIZONTAL
+    glPushMatrix();
+    float topo_cilindro = topo_pedra + 0.1f;
+    glTranslatef(x_pedra - 0.1f, topo_cilindro, z_pedra);
+
+    glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texturaMadeira);
+
+    GLUquadric* cilindro_horizontal = gluNewQuadric();
+    gluQuadricTexture(cilindro_horizontal, GL_TRUE);
+    gluQuadricNormals(cilindro_horizontal, GLU_SMOOTH);
+    gluCylinder(cilindro_horizontal, 0.01f, 0.01f, 0.2f, 16, 4);
+
+    gluDeleteQuadric(cilindro_horizontal);
+    glDisable(GL_TEXTURE_2D);
+    glPopMatrix();
+
+        //CILINDROS CRUZANDO O CILINDRO HORINZONTAL
+
+    float x_cilindro_cruzado;
+    float z_cilindro_cruzado = z_pedra - 0.045f;
+    
+    for(int i = 0; i < 2; i++){
+        glPushMatrix();
+
+        x_cilindro_cruzado = x_pedra + (0.07f - 0.03*i);
+        glTranslatef(x_cilindro_cruzado, topo_cilindro, z_cilindro_cruzado);
+
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, texturaMadeira);
+
+        GLUquadric* cilindro_cruzado = gluNewQuadric();
+        gluQuadricTexture(cilindro_cruzado, GL_TRUE);
+        gluQuadricNormals(cilindro_cruzado, GLU_SMOOTH);
+        gluCylinder(cilindro_cruzado, 0.007f, 0.007f, 0.09f, 16, 4);
+
+        gluDeleteQuadric(cilindro_cruzado);
+        glDisable(GL_TEXTURE_2D);
+        glPopMatrix();
+    }
+
+        //CILINDROS SETAS
+
+    float x_cilindro_seta = x_pedra - 0.1f;
+    float z_cilindro_seta;
+
+    for(int i = 0; i < 2; i++){
+        glPushMatrix();
+
+        z_cilindro_seta = z_pedra;
+        glTranslatef(x_cilindro_seta, topo_cilindro, z_cilindro_seta);
+        glRotatef(135.0f - 90*i, 0.0f, 1.0f, 0.0f);
+
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, texturaMadeira);
+
+        GLUquadric* cilindro_seta = gluNewQuadric();
+        gluQuadricTexture(cilindro_seta, GL_TRUE);
+        gluQuadricNormals(cilindro_seta, GLU_SMOOTH);
+        gluCylinder(cilindro_seta, 0.007f, 0.007f, 0.09f, 16, 4);
+
+        gluDeleteQuadric(cilindro_seta);
+        glDisable(GL_TEXTURE_2D);
+        glPopMatrix();
+    }
 
     // PEIXES
     for (int i = 0; i < numPeixes; i++) {

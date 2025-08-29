@@ -181,6 +181,18 @@ void adicionarPeixe() {
     numPeixes++;
 }
 
+void removerPeixe(){
+    if(numPeixes == 0){
+        return;
+    }
+
+    Peixe peixeVazio = {0};
+    peixes[numPeixes-1] = peixeVazio;
+    peixes = realloc(peixes, (numPeixes - 1) * sizeof(Peixe));
+
+    numPeixes--;
+}
+
 void inicializarPeixes(int quantidade) {
     for (int i = 0; i < quantidade && numPeixes < MAX_PEIXES; i++) {
         adicionarPeixe();
