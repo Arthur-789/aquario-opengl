@@ -17,6 +17,10 @@ GLuint texturaAreia;
 GLuint texturaMesa;
 GLuint texturaCeu;
 GLuint texturaAbacaxi;
+GLuint texturaPedra;
+GLuint texturaMadeira;
+GLuint texturaMoaiPedra;
+GLuint texturaMoaiTopo;
 GLuint texturaPeixe1;
 GLuint texturaPeixe2;
 GLuint texturaPeixe3;
@@ -69,6 +73,10 @@ void inicializar() {
     texturaMesa = carregaTextura("texturas/madeira.png");
     texturaCeu = carregaTextura("texturas/ceu.png");
     texturaAbacaxi = carregaTextura("texturas/abacaxi.png");
+    texturaPedra = carregaTextura("texturas/pedra.png");
+    texturaMadeira = carregaTextura("texturas/madeira2.png");
+    texturaMoaiPedra = carregaTextura("texturas/moai.png");
+    texturaMoaiTopo = carregaTextura("texturas/moai2.png");
     texturaPeixe1 = carregaTextura("texturas/peixe1.png");
     texturaPeixe2 = carregaTextura("texturas/peixe2.png");
     texturaPeixe3 = carregaTextura("texturas/peixe3.png");
@@ -134,5 +142,9 @@ void teclado(unsigned char tecla, int x, int y) {
             adicionarPeixe();
             glutPostRedisplay();
             break;
+        case 'r':
+        case 'R':
+            removerPeixe();
+            glutPostRedisplay();
     }
 }

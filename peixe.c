@@ -40,6 +40,93 @@ void atualizarPeixes() {
     glutPostRedisplay();
 }
 
+void movimentoOciosoPeixes(){
+    static float tempoAnim = 0.0f;
+    tempoAnim += 0.1f; // Controla a velocidade da oscilação da cauda
+
+    for(int i = 0; i < numPeixes; i++){
+        Peixe* p = &peixes[i];
+
+        float margem = p->tamanho / 2.0f;
+        float x_min = -LARGURA_AQUARIO/2 + margem;
+        float x_max = LARGURA_AQUARIO/2 - margem;
+        float y_min = -2.0f + margem;
+        float y_max = (-2.0f + ALTURA_AGUA) - margem;
+        float z_min = -PROFUNDIDADE_AQUARIO/2 + margem;
+        float z_max = PROFUNDIDADE_AQUARIO/2 - margem;
+
+        float area_ociosa = 2.0f;
+        float x_min_ocioso = p->posX - area_ociosa;
+        float x_max_ocioso = p->posX + area_ociosa;
+        float y_min_ocioso = p->posY - area_ociosa;
+        float y_max_ocioso = p->posY + area_ociosa;
+        float z_min_ocioso = p->posZ - area_ociosa;
+        float z_max_ocioso = p->posZ + area_ociosa;
+
+        x_min_ocioso = (x_min_ocioso < x_min) ? x_min : x_min_ocioso;
+        x_max_ocioso = (x_max_ocioso > x_max) ? x_max : x_max_ocioso;
+        y_min_ocioso = (y_min_ocioso < y_min) ? y_min : y_min_ocioso;
+        y_max_ocioso = (y_max_ocioso > y_max) ? y_max : y_max_ocioso;
+        z_min_ocioso = (z_min_ocioso < z_min) ? z_min : z_min_ocioso;
+        z_max_ocioso = (z_max_ocioso > z_max) ? z_max : z_max_ocioso;
+
+        if (rand() % 200 < 1) {
+            float r1 = (float)rand() / (float)RAND_MAX;
+            float r2 = (float)rand() / (float)RAND_MAX;
+            float r3 = (float)rand() / (float)RAND_MAX;
+            
+            p->dirX = r1 * 1.0f - 0.5f;
+            p->dirY = r2 * 1.0f - 0.5f;
+            p->dirZ = r3 * 1.0f - 0.5f;
+            
+            float magnitude = sqrt(p->dirX * p->dirX + p->dirY * p->dirY + p->dirZ * p->dirZ);
+            if (magnitude > 0) {
+                p->dirX /= magnitude;
+                p->dirY /= magnitude;
+                p->dirZ /= magnitude;
+            }
+            
+        }
+
+        p->posX += p->dirX * p->velocidade;
+        p->posY += p->dirY * p->velocidade;
+        p->posZ += p->dirZ * p->velocidade;
+
+        // Se sair da área de animação ociosa, volta para o centro
+        if (p->posX < x_min_ocioso || p->posX > x_max_ocioso ||
+            p->posY < y_min_ocioso || p->posY > y_max_ocioso ||
+            p->posZ < z_min_ocioso || p->posZ > z_max_ocioso) {
+            
+            p->dirX = (p->posX - (x_min_ocioso + x_max_ocioso)/2) > 0 ? -1 : 1;
+            p->dirY = (p->posY - (y_min_ocioso + y_max_ocioso)/2) > 0 ? -1 : 1;
+            p->dirZ = (p->posZ - (z_min_ocioso + z_max_ocioso)/2) > 0 ? -1 : 1;
+            
+            // Normalização
+            float magnitude = sqrt(p->dirX * p->dirX + p->dirY * p->dirY + p->dirZ * p->dirZ);
+            if (magnitude > 0) {
+                p->dirX /= magnitude;
+                p->dirY /= magnitude;
+                p->dirZ /= magnitude;
+            }
+        }
+
+        // Limites
+        if (p->posX < x_min) { p->posX = x_min; p->dirX = fabs(p->dirX); }
+        if (p->posX > x_max) { p->posX = x_max; p->dirX = -fabs(p->dirX); }
+        if (p->posY < y_min) { p->posY = y_min; p->dirY = fabs(p->dirY); }
+        if (p->posY > y_max) { p->posY = y_max; p->dirY = -fabs(p->dirY); }
+        if (p->posZ < z_min) { p->posZ = z_min; p->dirZ = fabs(p->dirZ); }
+        if (p->posZ > z_max) { p->posZ = z_max; p->dirZ = -fabs(p->dirZ); }
+
+        if (p->dirX != 0 || p->dirZ != 0) {
+            p->rotacao = atan2f(-p->dirX, -p->dirZ) * (180.0f / M_PI);
+        }
+
+        p->anguloCauda = 10.0f * sin(tempoAnim);
+    }
+    glutPostRedisplay();
+}
+
 void desenharPeixe(Peixe* peixe) {
     if (!peixe) return;
 
@@ -71,10 +158,10 @@ void desenharPeixe(Peixe* peixe) {
         glTexCoord2f(0.0f, 0.0f); glVertex3f(-hx,  hy, -hz);
 
         glNormal3f(1.0f, 0.0f, 0.0f);
-        glTexCoord2f(0.0f, 1.0f); glVertex3f( hx, -hy,  hz);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f( hx, -hy, -hz);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f( hx,  hy, -hz);
-        glTexCoord2f(0.0f, 0.0f); glVertex3f( hx,  hy,  hz);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f( hx, -hy,  hz);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f( hx, -hy, -hz);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f( hx,  hy, -hz);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f( hx,  hy,  hz);
     glEnd();
 
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -108,6 +195,20 @@ void desenharPeixe(Peixe* peixe) {
         glVertex3f( hx, -hy,  hz);
         glVertex3f(-hx, -hy,  hz);
     glEnd();
+
+    // NADADEIRA
+    float largura_nadadeira = tamX * 0.5f;
+    float altura_nadadeira = tamY * 0.7f;
+    float Z_nadadeira = hz + 0.0001f;
+    glRotatef(peixe->anguloCauda, 0.0f, 1.0f, 0.0f);
+
+    glBegin(GL_QUADS);
+        glNormal3f(1.0f, 0.0f, 0.0f);
+        glVertex3f(largura_nadadeira * 0.15f, -altura_nadadeira / 2.0f, Z_nadadeira * 1.7f);
+        glVertex3f(largura_nadadeira * 0.15f, -altura_nadadeira / 2.0f, Z_nadadeira);
+        glVertex3f(largura_nadadeira * 0.15f,  altura_nadadeira / 2.0f, Z_nadadeira * 1.7f);
+        glVertex3f(largura_nadadeira * 0.15f,  altura_nadadeira / 2.0f, Z_nadadeira);
+    glEnd();
     glPopMatrix();
 }
 
@@ -125,7 +226,7 @@ void adicionarPeixe() {
     Peixe* novoPeixe = &peixes[numPeixes];
 
     float r = (float)rand() / (float)RAND_MAX;
-    novoPeixe->velocidade = 0.01f + r * 0.04f; // 0.01 até 0.05
+    novoPeixe->velocidade = 0.0015f + r * 0.003f;
     r = (float)rand() / (float)RAND_MAX;
     novoPeixe->tamanho = 0.2f + r * 0.3f;
 
@@ -179,6 +280,18 @@ void adicionarPeixe() {
     novoPeixe->corB = coresTexturaPeixe[texturaIdx][2];
 
     numPeixes++;
+}
+
+void removerPeixe(){
+    if(numPeixes == 0){
+        return;
+    }
+
+    Peixe peixeVazio = {0};
+    peixes[numPeixes-1] = peixeVazio;
+    peixes = realloc(peixes, (numPeixes - 1) * sizeof(Peixe));
+
+    numPeixes--;
 }
 
 void inicializarPeixes(int quantidade) {

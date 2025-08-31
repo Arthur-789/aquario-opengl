@@ -13,6 +13,7 @@ typedef struct {
     float rotacao;
     GLuint textura;
     float corR, corG, corB;
+    float anguloCauda;
 } Peixe;
 
 #define LARGURA_AQUARIO 5.0f
@@ -38,6 +39,10 @@ extern GLuint texturaAreia;
 extern GLuint texturaMesa;
 extern GLuint texturaCeu;
 extern GLuint texturaAbacaxi;
+extern GLuint texturaPedra;
+extern GLuint texturaMadeira;
+extern GLuint texturaMoaiPedra;
+extern GLuint texturaMoaiTopo;
 extern GLuint texturaPeixe1;
 extern GLuint texturaPeixe2;
 extern GLuint texturaPeixe3;
@@ -65,8 +70,10 @@ extern Peixe* peixes;
 extern int numPeixes;
 
 void atualizarPeixes();
+void movimentoOciosoPeixes();
 void desenharPeixe(Peixe* peixe);
 void adicionarPeixe();
+void removerPeixe();
 void inicializarPeixes(int quantidade);
 
 // ILUMINACAO

@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
     glutMouseFunc(mouse);
     glutMotionFunc(movimentoMouse);
     glutKeyboardFunc(teclado);
-    glutIdleFunc(atualizarPeixes);
+    glutIdleFunc(movimentoOciosoPeixes);
     
     glutMainLoop();
     return 0;
