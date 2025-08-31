@@ -197,17 +197,16 @@ void desenharPeixe(Peixe* peixe) {
     glEnd();
 
     // NADADEIRA
-    float largura_nadadeira = tamX * 0.5f;
     float altura_nadadeira = tamY * 0.7f;
-    float Z_nadadeira = hz + 0.0001f;
+    float pos_nadadeira = hz + 0.0001f;
     glRotatef(peixe->anguloCauda, 0.0f, 1.0f, 0.0f);
 
     glBegin(GL_QUADS);
         glNormal3f(1.0f, 0.0f, 0.0f);
-        glVertex3f(largura_nadadeira * 0.15f, -altura_nadadeira / 2.0f, Z_nadadeira * 1.7f);
-        glVertex3f(largura_nadadeira * 0.15f, -altura_nadadeira / 2.0f, Z_nadadeira);
-        glVertex3f(largura_nadadeira * 0.15f,  altura_nadadeira / 2.0f, Z_nadadeira * 1.7f);
-        glVertex3f(largura_nadadeira * 0.15f,  altura_nadadeira / 2.0f, Z_nadadeira);
+        glVertex3f(0.0f, -altura_nadadeira / 2.0f, pos_nadadeira * 1.7f);
+        glVertex3f(0.0f, -altura_nadadeira / 2.0f, pos_nadadeira);
+        glVertex3f(0.0f,  altura_nadadeira / 2.0f, pos_nadadeira * 1.7f);
+        glVertex3f(0.0f,  altura_nadadeira / 2.0f, pos_nadadeira);
     glEnd();
     glPopMatrix();
 }
