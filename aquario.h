@@ -13,6 +13,7 @@ typedef struct {
     float rotacao;
     GLuint textura;
     float corR, corG, corB;
+    float anguloCauda;
 } Peixe;
 
 #define LARGURA_AQUARIO 5.0f

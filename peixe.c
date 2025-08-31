@@ -41,6 +41,9 @@ void atualizarPeixes() {
 }
 
 void movimentoOciosoPeixes(){
+    static float tempoAnim = 0.0f;
+    tempoAnim += 0.1f; // Controla a velocidade da oscilação da cauda
+
     for(int i = 0; i < numPeixes; i++){
         Peixe* p = &peixes[i];
 
@@ -118,6 +121,8 @@ void movimentoOciosoPeixes(){
         if (p->dirX != 0 || p->dirZ != 0) {
             p->rotacao = atan2f(-p->dirX, -p->dirZ) * (180.0f / M_PI);
         }
+
+        p->anguloCauda = 10.0f * sin(tempoAnim);
     }
     glutPostRedisplay();
 }
@@ -195,6 +200,7 @@ void desenharPeixe(Peixe* peixe) {
     float largura_nadadeira = tamX * 0.5f;
     float altura_nadadeira = tamY * 0.7f;
     float Z_nadadeira = hz + 0.0001f;
+    glRotatef(peixe->anguloCauda, 0.0f, 1.0f, 0.0f);
 
     glBegin(GL_QUADS);
         glNormal3f(1.0f, 0.0f, 0.0f);
