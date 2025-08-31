@@ -171,11 +171,12 @@ void desenhaCena() {
         glPopMatrix();
     }
 
-    //PEDRA
+    //PEDRA (CASA DO PATRICK)
     float x_pedra = - (LARGURA_AQUARIO/2 * 0.6f);
     float z_pedra = - (PROFUNDIDADE_AQUARIO/2 * 0.7f);
     float base_pedra = fundo_aquario;
 
+    glColor3f(1.0f, 1.0f, 1.0f); 
     glPushMatrix();
     glTranslatef(x_pedra, base_pedra, z_pedra);
 
@@ -232,7 +233,7 @@ void desenhaCena() {
 
     GLUquadric* cilindro_horizontal = gluNewQuadric();
     gluQuadricTexture(cilindro_horizontal, GL_TRUE);
-    gluQuadricNormals(cilindro_horizontal, GLU_SMOOTH);
+    gluQuadricNormals(cilindro_horizontal, GLU_FLAT);
     gluCylinder(cilindro_horizontal, 0.01f, 0.01f, 0.2f, 16, 4);
 
     gluDeleteQuadric(cilindro_horizontal);
@@ -255,7 +256,7 @@ void desenhaCena() {
 
         GLUquadric* cilindro_cruzado = gluNewQuadric();
         gluQuadricTexture(cilindro_cruzado, GL_TRUE);
-        gluQuadricNormals(cilindro_cruzado, GLU_SMOOTH);
+        gluQuadricNormals(cilindro_cruzado, GLU_FLAT);
         gluCylinder(cilindro_cruzado, 0.007f, 0.007f, 0.09f, 16, 4);
 
         gluDeleteQuadric(cilindro_cruzado);
@@ -280,13 +281,81 @@ void desenhaCena() {
 
         GLUquadric* cilindro_seta = gluNewQuadric();
         gluQuadricTexture(cilindro_seta, GL_TRUE);
-        gluQuadricNormals(cilindro_seta, GLU_SMOOTH);
+        gluQuadricNormals(cilindro_seta, GLU_FLAT);
         gluCylinder(cilindro_seta, 0.007f, 0.007f, 0.09f, 16, 4);
 
         gluDeleteQuadric(cilindro_seta);
         glDisable(GL_TEXTURE_2D);
         glPopMatrix();
     }
+
+    //PEDRA (CASA DO LULA MOLUSCO)
+
+    float x_moai = 2 * x_abacaxi - x_pedra;
+    float z_moai = - (PROFUNDIDADE_AQUARIO/2 * 0.7f);
+    float base_moai = fundo_aquario;
+
+    glPushMatrix();
+
+    glTranslatef(x_moai, base_moai, z_moai);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    glScalef(0.4f, 0.4f, 0.6f);
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texturaMoaiPedra);
+
+    GLUquadric* cilindro_moai = gluNewQuadric();
+    gluQuadricTexture(cilindro_moai, GL_TRUE);
+    gluQuadricNormals(cilindro_moai, GLU_SMOOTH);
+
+    gluCylinder(cilindro_moai, 0.8f, 0.6f, 1.6f, 16, 4);
+
+    glBindTexture(GL_TEXTURE_2D, texturaMoaiTopo);
+    glTranslatef(0.0f, 0.0f, 1.6f);
+    gluDisk(cilindro_moai, 0, 0.6f, 16, 1);
+
+    glTranslatef(0.0f, 0.0f, -1.6f);
+
+    //LATERAIS-"ORELHAS"
+    float largura_orelha = 0.15f;
+    float altura_orelha = 0.6f;
+    float profundidade_orelha = 0.5f;
+    float pos_y_base = 0.5f;
+
+    for(int i = 0; i < 2; i++) {
+        glPushMatrix();
+        
+        float pos_x = (i == 0) ? 0.7f : -0.7f;
+        glTranslatef(pos_x, 0.0f, 1.0f);
+        glRotatef(93.0f, 1.0f, 0.0f, 0.0f);
+
+        glScalef(largura_orelha, altura_orelha, profundidade_orelha);
+        glutSolidCube(1.0f);
+        
+        glPopMatrix();
+    }
+
+    //CENTRAL-"NARIZ"
+
+    glPushMatrix();
+    glTranslatef(0.0f, -0.5f, 1.0f);
+    glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+    glScalef(largura_orelha, altura_orelha, profundidade_orelha);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+
+    //CENTRAL-"SOBRANCELHA"
+    glPushMatrix();
+    glTranslatef(0.0f, -0.5f, 1.0f);
+    glTranslatef(0.0f, 0.0f, altura_orelha/2);
+    glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+    glScalef(altura_orelha + 0.3f, largura_orelha, profundidade_orelha);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+
+    gluDeleteQuadric(cilindro_moai);
+    glDisable(GL_TEXTURE_2D);
+    glPopMatrix();
 
     // PEIXES
     for (int i = 0; i < numPeixes; i++) {

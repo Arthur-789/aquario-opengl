@@ -19,6 +19,8 @@ GLuint texturaCeu;
 GLuint texturaAbacaxi;
 GLuint texturaPedra;
 GLuint texturaMadeira;
+GLuint texturaMoaiPedra;
+GLuint texturaMoaiTopo;
 GLuint texturaPeixe1;
 GLuint texturaPeixe2;
 GLuint texturaPeixe3;
@@ -73,6 +75,8 @@ void inicializar() {
     texturaAbacaxi = carregaTextura("texturas/abacaxi.png");
     texturaPedra = carregaTextura("texturas/pedra.png");
     texturaMadeira = carregaTextura("texturas/madeira_2.png");
+    texturaMoaiPedra = carregaTextura("texturas/teste.png");
+    texturaMoaiTopo = carregaTextura("texturas/moai_pedra2.png");
     texturaPeixe1 = carregaTextura("texturas/peixe1.png");
     texturaPeixe2 = carregaTextura("texturas/peixe2.png");
     texturaPeixe3 = carregaTextura("texturas/peixe3.png");
