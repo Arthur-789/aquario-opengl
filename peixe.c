@@ -153,10 +153,10 @@ void desenharPeixe(Peixe* peixe) {
         glTexCoord2f(0.0f, 0.0f); glVertex3f(-hx,  hy, -hz);
 
         glNormal3f(1.0f, 0.0f, 0.0f);
-        glTexCoord2f(0.0f, 1.0f); glVertex3f( hx, -hy,  hz);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f( hx, -hy, -hz);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f( hx,  hy, -hz);
-        glTexCoord2f(0.0f, 0.0f); glVertex3f( hx,  hy,  hz);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f( hx, -hy,  hz);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f( hx, -hy, -hz);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f( hx,  hy, -hz);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f( hx,  hy,  hz);
     glEnd();
 
     glBindTexture(GL_TEXTURE_2D, 0);
