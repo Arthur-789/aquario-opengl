@@ -131,7 +131,7 @@ void desenhaCena() {
     glEnd();
     glDisable(GL_TEXTURE_2D);
 
-    // ABACAXI
+    // ABACAXI (CASA DO BOB ESPONJA)
     float x_abacaxi = - (LARGURA_AQUARIO/2 * 0.01f);
     float z_abacaxi = - (PROFUNDIDADE_AQUARIO/2 * 0.7f);
     float base_abacaxi = fundo_aquario + 0.35f;
@@ -171,7 +171,7 @@ void desenhaCena() {
         glPopMatrix();
     }
 
-    //PEDRA (CASA DO PATRICK)
+    // PEDRA (CASA DO PATRICK)
     float x_pedra = - (LARGURA_AQUARIO/2 * 0.6f);
     float z_pedra = - (PROFUNDIDADE_AQUARIO/2 * 0.7f);
     float base_pedra = fundo_aquario;
@@ -200,9 +200,9 @@ void desenhaCena() {
     glDisable(GL_TEXTURE_2D);
     glPopMatrix();
 
-    //DETALHE EM CIMA DA PEDRA
+    // Detalhe superior
       
-        //CILINDRO VERTICAL
+        // Cilindro vertical
     glPushMatrix();
     float topo_pedra = base_pedra + (1.0f * 0.6f);
     glTranslatef(x_pedra, topo_pedra , z_pedra);
@@ -221,7 +221,7 @@ void desenhaCena() {
     glDisable(GL_TEXTURE_2D);
     glPopMatrix();
 
-        //CILINDRO HORIZONTAL
+        // Cilindro horizontal
     glPushMatrix();
     float topo_cilindro = topo_pedra + 0.1f;
     glTranslatef(x_pedra - 0.1f, topo_cilindro, z_pedra);
@@ -240,8 +240,7 @@ void desenhaCena() {
     glDisable(GL_TEXTURE_2D);
     glPopMatrix();
 
-        //CILINDROS CRUZANDO O CILINDRO HORINZONTAL
-
+        // Cilindros cruzando o horizontal
     float x_cilindro_cruzado;
     float z_cilindro_cruzado = z_pedra - 0.045f;
     
@@ -264,8 +263,7 @@ void desenhaCena() {
         glPopMatrix();
     }
 
-        //CILINDROS SETAS
-
+        // Setas
     float x_cilindro_seta = x_pedra - 0.1f;
     float z_cilindro_seta;
 
@@ -289,7 +287,7 @@ void desenhaCena() {
         glPopMatrix();
     }
 
-    //PEDRA (CASA DO LULA MOLUSCO)
+    // PEDRA (CASA DO LULA MOLUSCO)
 
     float x_moai = 2 * x_abacaxi - x_pedra;
     float z_moai = - (PROFUNDIDADE_AQUARIO/2 * 0.7f);
@@ -316,7 +314,7 @@ void desenhaCena() {
 
     glTranslatef(0.0f, 0.0f, -1.6f);
 
-    //LATERAIS-"ORELHAS"
+    // Orelhas
     float largura_orelha = 0.15f;
     float altura_orelha = 0.6f;
     float profundidade_orelha = 0.5f;
@@ -335,8 +333,7 @@ void desenhaCena() {
         glPopMatrix();
     }
 
-    //CENTRAL-"NARIZ"
-
+    // Nariz
     glPushMatrix();
     glTranslatef(0.0f, -0.5f, 1.0f);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
@@ -344,7 +341,7 @@ void desenhaCena() {
     glutSolidCube(1.0f);
     glPopMatrix();
 
-    //CENTRAL-"SOBRANCELHA"
+    // Sobrancelhas
     glPushMatrix();
     glTranslatef(0.0f, -0.5f, 1.0f);
     glTranslatef(0.0f, 0.0f, altura_orelha/2);

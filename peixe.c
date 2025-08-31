@@ -89,7 +89,7 @@ void movimentoOciosoPeixes(){
         p->posY += p->dirY * p->velocidade;
         p->posZ += p->dirZ * p->velocidade;
 
-        //se sair da área de animação ociosa, volta para o centro
+        // Se sair da área de animação ociosa, volta para o centro
         if (p->posX < x_min_ocioso || p->posX > x_max_ocioso ||
             p->posY < y_min_ocioso || p->posY > y_max_ocioso ||
             p->posZ < z_min_ocioso || p->posZ > z_max_ocioso) {
@@ -98,7 +98,7 @@ void movimentoOciosoPeixes(){
             p->dirY = (p->posY - (y_min_ocioso + y_max_ocioso)/2) > 0 ? -1 : 1;
             p->dirZ = (p->posZ - (z_min_ocioso + z_max_ocioso)/2) > 0 ? -1 : 1;
             
-            //normalização
+            // Normalização
             float magnitude = sqrt(p->dirX * p->dirX + p->dirY * p->dirY + p->dirZ * p->dirZ);
             if (magnitude > 0) {
                 p->dirX /= magnitude;
@@ -107,7 +107,7 @@ void movimentoOciosoPeixes(){
             }
         }
 
-        //limites
+        // Limites
         if (p->posX < x_min) { p->posX = x_min; p->dirX = fabs(p->dirX); }
         if (p->posX > x_max) { p->posX = x_max; p->dirX = -fabs(p->dirX); }
         if (p->posY < y_min) { p->posY = y_min; p->dirY = fabs(p->dirY); }
