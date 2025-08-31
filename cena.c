@@ -132,7 +132,7 @@ void desenhaCena() {
     glDisable(GL_TEXTURE_2D);
 
     // ABACAXI (CASA DO BOB ESPONJA)
-    float x_abacaxi = - (LARGURA_AQUARIO/2 * 0.01f);
+    float x_abacaxi = (LARGURA_AQUARIO/2 * 0.6f);
     float z_abacaxi = - (PROFUNDIDADE_AQUARIO/2 * 0.7f);
     float base_abacaxi = fundo_aquario + 0.35f;
 
@@ -288,8 +288,7 @@ void desenhaCena() {
     }
 
     // PEDRA (CASA DO LULA MOLUSCO)
-
-    float x_moai = 2 * x_abacaxi - x_pedra;
+    float x_moai = (LARGURA_AQUARIO/2 * 0.01f);
     float z_moai = - (PROFUNDIDADE_AQUARIO/2 * 0.7f);
     float base_moai = fundo_aquario;
 
